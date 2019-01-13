@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 90px;
     padding-bottom: 20px;
 }
 
@@ -15,10 +15,10 @@
 .dl-horizontal dt {
     white-space: normal;
 }
-span.field-validation-error
-{
-    color:red;
-    font-weight:bold;
+
+span.field-validation-error {
+    color: red;
+    font-weight: bold;
 }
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -53,10 +53,11 @@ textarea {
     border-top-color: #fff;
     border-bottom-color: #fff;
 }
-.navbar-brand
-{
-    font-weight:700;
+
+.navbar-brand {
+    font-weight: 700;
 }
+
 body {
     font-size: 17px;
 }
@@ -98,4 +99,52 @@ h6,
     font-size: 17px;
     padding: 7px 20px;
     border-radius: 9px;
+}
+
+/*Page-level styles*/
+
+.gigs {
+    list-style: none;
+}
+
+.gigs > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.gigs > li .date {
+    background: red;
+    color: white;
+    text-align: center;
+    width: 60px;
+    border-radius:8px;
+
+}
+
+.gigs > li .date .month {
+    text-transform:uppercase;
+    font-size:14px;
+    font-weight:bold;
+    padding:2px 6px;
+}
+.gigs > li .date .day
+{
+    background:#f7f7f7;
+    color:#333;
+    font-size:20px;
+    padding:6px 12px;
+}
+.gigs > li .details {
+    position: absolute;
+    top: 0;
+    left: 70px;
+}
+.gigs > li .details .artist
+{
+    font-weight:bold;
+    display:block;
+}
+.gigs > li .details .genre
+{
+    font-size:15px;
 }

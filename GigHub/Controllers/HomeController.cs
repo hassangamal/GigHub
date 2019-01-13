@@ -17,7 +17,7 @@ namespace GigHub.Controllers
         public ActionResult Index()
         {
             var upcomingGigs = _context.Gigs
-                .Include(g => g.Artist)
+                .Include(a => a.Artist).Include(g=>g.Genre)
                 .Where(g => g.DateTime > DateTime.Now);
             return View(upcomingGigs);
         }
