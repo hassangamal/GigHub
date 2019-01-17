@@ -7,13 +7,13 @@ namespace GigHub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddAttendance2 : IMigrationMetadata
+    public sealed partial class addIsCanceledToGig : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAttendance2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addIsCanceledToGig));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901150211508_AddAttendance2"; }
+            get { return "201901160510196_addIsCanceledToGig"; }
         }
         
         string IMigrationMetadata.Source

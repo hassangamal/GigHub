@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -55,6 +58,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -175,15 +181,37 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Dtos\GenreDto.cs" />
+    <Compile Include="Dtos\GigDto.cs" />
+    <Compile Include="Controllers\API\GigsController.cs" />
+    <Compile Include="Controllers\API\AttendancesController.cs" />
+    <Compile Include="Dtos\NotificationDto.cs" />
+    <Compile Include="Controllers\API\NotificationsController.cs" />
+    <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Controllers\FolloweesController.cs" />
-    <Compile Include="Controllers\FollowingsController.cs" />
+    <Compile Include="Controllers\API\FollowingsController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\201901160510196_addIsCanceledToGig.cs" />
+    <Compile Include="Migrations\201901160510196_addIsCanceledToGig.Designer.cs">
+      <DependentUpon>201901160510196_addIsCanceledToGig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901160728087_AddNotification.cs" />
+    <Compile Include="Migrations\201901160728087_AddNotification.Designer.cs">
+      <DependentUpon>201901160728087_AddNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901171219109_Update.cs" />
+    <Compile Include="Migrations\201901171219109_Update.Designer.cs">
+      <DependentUpon>201901171219109_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\AttendanceDto.cs" />
@@ -215,18 +243,6 @@
     <Compile Include="Migrations\201901130245031_AddNameToApplicationUser.Designer.cs">
       <DependentUpon>201901130245031_AddNameToApplicationUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901150144019_AddAttendance.cs" />
-    <Compile Include="Migrations\201901150144019_AddAttendance.Designer.cs">
-      <DependentUpon>201901150144019_AddAttendance.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901150151491_AddAttendance1.cs" />
-    <Compile Include="Migrations\201901150151491_AddAttendance1.Designer.cs">
-      <DependentUpon>201901150151491_AddAttendance1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901150211508_AddAttendance2.cs" />
-    <Compile Include="Migrations\201901150211508_AddAttendance2.Designer.cs">
-      <DependentUpon>201901150211508_AddAttendance2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201901160034066_AddFollowers.cs" />
     <Compile Include="Migrations\201901160034066_AddFollowers.Designer.cs">
       <DependentUpon>201901160034066_AddFollowers.cs</DependentUpon>
@@ -254,6 +270,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -302,7 +319,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Gigs\Create.cshtml" />
+    <Content Include="Views\Gigs\GigForm.cshtml" />
     <Content Include="Views\Gigs\Mine.cshtml" />
     <Content Include="Views\Followees\Following.cshtml" />
   </ItemGroup>
@@ -336,17 +353,17 @@
     <EmbeddedResource Include="Migrations\201901130245031_AddNameToApplicationUser.resx">
       <DependentUpon>201901130245031_AddNameToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901150144019_AddAttendance.resx">
-      <DependentUpon>201901150144019_AddAttendance.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901150151491_AddAttendance1.resx">
-      <DependentUpon>201901150151491_AddAttendance1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901150211508_AddAttendance2.resx">
-      <DependentUpon>201901150211508_AddAttendance2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901160034066_AddFollowers.resx">
       <DependentUpon>201901160034066_AddFollowers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901160510196_addIsCanceledToGig.resx">
+      <DependentUpon>201901160510196_addIsCanceledToGig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901160728087_AddNotification.resx">
+      <DependentUpon>201901160728087_AddNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901171219109_Update.resx">
+      <DependentUpon>201901171219109_Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

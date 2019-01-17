@@ -7,7 +7,7 @@ using System.Web.Http;
 using GigHub.Models;
 using Microsoft.AspNet.Identity;
 using GigHub.Dtos;
-namespace GigHub.Controllers
+namespace GigHub.Controllers.API
 {
 
     [Authorize]
@@ -29,7 +29,7 @@ namespace GigHub.Controllers
             var attendance = new Attendance
             {
                 GigId = attendanceDto.GigId,
-                AttendeeId = userId
+                AttendeeId = userId,
             };
             _context.Attendances.Add(attendance);
             _context.SaveChanges();
