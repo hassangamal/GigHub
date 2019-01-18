@@ -2,29 +2,27 @@
     padding-top: 90px;
     padding-bottom: 20px;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
     white-space: normal;
 }
-
-span.field-validation-error {
-    color: red;
-    font-weight: bold;
-}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+
+span.field-validation-error {
+    color: red;
+    font-weight: bold;
 }
 
 .voffset {
@@ -48,10 +46,14 @@ textarea {
 }
 
 .voffset5 {
-    margin-top: 50px;
+    margin-top: 80px;
+}
+/* Bootstrap Overrides */
+.popover {
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
-/*Bootstrap Overrides*/
 .navbar-inverse {
     background-color: #ff4342;
     border-color: #ff4342;
@@ -76,15 +78,18 @@ textarea {
             background: #a80a0a;
         }
 
-    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-        background-color: rgba(205,40,39,0.55);
+    .navbar-inverse .navbar-nav > .open > a,
+    .navbar-inverse .navbar-nav > .open > a:hover,
+    .navbar-inverse .navbar-nav > .open > a:focus {
+        background-color: rgba(205, 40, 39, 0.55);
     }
 
 .dropdown-menu {
     box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
-.navbar-inverse .navbar-nav > .dropdown-menu > a.carte {
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
     border-top-color: #fff;
     border-bottom-color: #fff;
 }
@@ -110,9 +115,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-    font-family: Lato,"Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    line-height: 1.1;
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .form-group {
@@ -121,12 +124,13 @@ h6,
 
 .form-control {
     font-size: 17px;
+    height: 44px;
     border-radius: 9px;
-    height: 45px;
+    transition: none;
+    -webkit-transition: none;
 }
 
     .form-control:focus {
-        border-color: #2196f3;
         box-shadow: none;
     }
 
@@ -135,16 +139,14 @@ h6,
     padding: 7px 20px;*/
     border-radius: 9px;
 }
-
-/*Page-level styles*/
-
+/* Page-level styles */
 .gigs {
     list-style: none;
 }
 
     .gigs > li {
         position: relative;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
     }
 
         .gigs > li .date {
@@ -152,6 +154,7 @@ h6,
             color: white;
             text-align: center;
             width: 60px;
+            -ms-border-radius: 8px;
             border-radius: 8px;
         }
 
@@ -181,7 +184,9 @@ h6,
             }
 
             .gigs > li .details .genre {
-                font-size: 15px;
+                font-size: 14px;
+                display: block;
+                margin-bottom: 4px;
             }
 
         .gigs > li .actions {
@@ -192,3 +197,25 @@ h6,
         .gigs > li:hover .actions {
             display: block;
         }
+
+.popover-notifications .popover-content {
+    padding: 0;
+}
+
+.popover-notifications ul.notifications {
+    list-style: none;
+    padding-left: 0;
+}
+
+    .popover-notifications ul.notifications > li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+    }
+
+        .popover-notifications ul.notifications > li:last-child {
+            border-bottom: none;
+        }
+
+    .popover-notifications ul.notifications .highlight {
+        font-weight: bold;
+    }

@@ -1,0 +1,224 @@
+﻿// Color variables (appears count calculates by raw css)
+@color0: #ffffff; // Appears 4 times
+@color1: #ff4342; // Appears 2 times
+
+// Width variables (appears count calculates by raw css)
+@width0: 280px; // Appears 3 times
+
+
+body {
+    font-size: 17px;
+    padding-bottom: 20px;
+    padding-top: 90px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dl-horizontal {
+    dt {
+        white-space: normal;
+    }
+}
+
+span.field-validation-error {
+    color: red;
+    font-weight: bold;
+}
+
+input {
+    max-width: @width0;
+}
+
+select {
+    max-width: @width0;
+}
+
+textarea {
+    max-width: @width0;
+}
+
+.voffset {
+    margin-top: 2px;
+}
+
+.voffset1 {
+    margin-top: 5px;
+}
+
+.voffset2 {
+    margin-top: 10px;
+}
+
+.voffset3 {
+    margin-top: 20px;
+}
+
+.voffset4 {
+    margin-top: 40px;
+}
+
+.voffset5 {
+    margin-top: 50px;
+}
+
+.popover {
+    box-shadow: none;
+}
+
+.navbar-inverse {
+    background-color: @color1;
+    border-color: @color1;
+
+    .navbar-nav > li > a {
+        color: @color0;
+    }
+
+    .navbar-brand {
+        color: @color0;
+    }
+
+    .notifications {
+        position: relative;
+
+        .badge {
+            background: #a80a0a;
+            position: absolute;
+            right: -1px;
+            top: 8px;
+        }
+    }
+
+    .navbar-nav > .open > a {
+        background-color: rgba(205,40,39,0.55);
+
+        &:hover {
+            background-color: rgba(205,40,39,0.55);
+        }
+
+        &:focus {
+            background-color: rgba(205,40,39,0.55);
+        }
+    }
+
+    .navbar-nav > .dropdown-menu > a.carte {
+        border-bottom-color: @color0;
+        border-top-color: @color0;
+    }
+}
+
+.dropdown-menu {
+    box-shadow: none;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Lato,"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 9px;
+    font-size: 17px;
+    height: 45px;
+
+    &:focus {
+        border-color: #2196f3;
+        box-shadow: none;
+    }
+}
+
+.btn {
+    border-radius: 9px;
+}
+
+.gigs {
+    list-style: none;
+}
+
+.gigs > li {
+    margin-bottom: 30px;
+    position: relative;
+
+    .date {
+        background: red;
+        border-radius: 8px;
+        color: white;
+        text-align: center;
+        width: 60px;
+
+        .month {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 2px 6px;
+            text-transform: uppercase;
+        }
+
+        .day {
+            background: #f7f7f7;
+            color: #333333;
+            font-size: 20px;
+            padding: 6px 12px;
+        }
+    }
+
+    .details {
+        left: 70px;
+        position: absolute;
+        top: 0;
+
+        .artist {
+            display: block;
+            font-weight: bold;
+        }
+
+        .genre {
+            font-size: 15px;
+        }
+    }
+
+    .actions {
+        display: none;
+        font-size: 15px;
+    }
+
+    &:hover {
+        .actions {
+            display: block;
+        }
+    }
+}
+
+.popover-notifications {
+    .popover-content {
+        padding: 0;
+    }
+
+    ul.notifications {
+        list-style: none;
+        padding-left: 0;
+
+        .highlight {
+            font-weight: bold;
+        }
+    }
+
+    ul.notifications > li {
+        border-bottom: 1px solid #dddddd;
+        padding: 10px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
