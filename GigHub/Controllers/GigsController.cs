@@ -58,6 +58,25 @@ namespace GigHub.Controllers
 
         }
 
+        public ActionResult Details(int id)
+        {
+            var gig = _context.Gigs
+                .Include(a => a.Artist)
+                .Include(g => g.Genre)
+                .SingleOrDefault(g => g.Id == id);
+            if (gig == null)
+                return HttpNotFound();
+            var viewModel = new GigDetailsViewModel { Gig = gig };
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                viewModel.IsAttending = _context.Attendances.Any(a => a.GigId == gig.Id && a.AttendeeId == userId);
+                viewModel.IsAttending = _context.Followings.Any(a => a.FolloweeId == gig.ArtistId && a.FollowerId == userId);
+
+            }
+            return View("Details", viewModel);
+        }
+
         [Authorize]
         public ActionResult Edit(int id)
         {
@@ -109,11 +128,13 @@ namespace GigHub.Controllers
         {
             var userId = User.Identity.GetUserId();
             var gigs = _context.Attendances.Where(a => a.AttendeeId == userId).Select(a => a.Gig).Include(g => g.Artist).Include(g => g.Genre).ToList();
+            var attendaces = _context.Attendances.Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now).ToList().ToLookup(a => a.GigId);
             var viewModel = new GigsViewModel
             {
                 UpcompingGigs = gigs,
                 ShowActions = User.Identity.IsAuthenticated,
-                Heading = "Gigs I'm Attending"
+                Heading = "Gigs I'm Attending",
+                Attendances = attendaces
             };
             return View("Gigs", viewModel);
         }
