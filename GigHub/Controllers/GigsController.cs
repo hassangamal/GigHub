@@ -17,6 +17,12 @@ namespace GigHub.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
+        [HttpPost]
+        public ActionResult Search(GigsViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
+        }
         [Authorize]
         public ActionResult Create()
         {
@@ -59,7 +65,7 @@ namespace GigHub.Controllers
             var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
             var viewModel = new GigFormViewModel
             {
-                Id=gig.Id,
+                Id = gig.Id,
                 Genres = _context.Genres.ToList(),
                 Date = gig.DateTime.ToString("d MMM yyyy"),
                 Time = gig.DateTime.ToString("HH:MM"),
@@ -82,7 +88,7 @@ namespace GigHub.Controllers
             // we make that beacuse it translated into sql query and sql didn't know what identity and getuserId()
             var userId = User.Identity.GetUserId();
             var gig = _context.Gigs
-                .Include(g=>g.Attendances.Select(a=>a.Attendee))
+                .Include(g => g.Attendances.Select(a => a.Attendee))
                 .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
             gig.Modify(viewModel.GetDateTime(), viewModel.Genre, viewModel.Venue);
             _context.SaveChanges();
@@ -94,7 +100,7 @@ namespace GigHub.Controllers
         public ActionResult Mine()
         {
             var userId = User.Identity.GetUserId();
-            var gigs = _context.Gigs.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now&&!g.IsCanceled)
+            var gigs = _context.Gigs.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now && !g.IsCanceled)
                 .Include(g => g.Genre).ToList();
             return View(gigs);
         }
