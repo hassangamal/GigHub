@@ -4,9 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using GigHub.Dtos;
-using GigHub.Models;
+using GigHub.Core.Dtos;
+using GigHub.Core.Models;
 using Microsoft.AspNet.Identity;
+using GigHub.Persistence;
 
 namespace GigHub.Controllers.API
 {
@@ -35,5 +36,18 @@ namespace GigHub.Controllers.API
             _context.SaveChanges();
             return Ok();
         }
+        [HttpDelete]
+        public IHttpActionResult Unfollow(string Id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var following = _context.Followings.SingleOrDefault(a => a.FollowerId == userId && a.FolloweeId == Id);
+            if (following == null)
+                return NotFound();
+            _context.Followings.Remove(following);
+            _context.SaveChanges();
+            return Ok(Id);
+        }
+
     }
 }

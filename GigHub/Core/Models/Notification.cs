@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace GigHub.Models
+namespace GigHub.Core.Models
 {
     public class Notification
     {

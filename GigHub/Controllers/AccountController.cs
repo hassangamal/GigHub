@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using GigHub.Models;
+using GigHub.Core.Models;
 using GigHub.ViewModels;
 
 namespace GigHub.Controllers
