@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using GigHub.Core.Models;
+using GigHub.Persistence.EntityConfigurations;
+
 namespace GigHub.Persistence
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -26,7 +28,7 @@ namespace GigHub.Persistence
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attendance>().HasRequired(a => a.Gig).WithMany(g => g.Attendances).WillCascadeOnDelete(false);
+            modelBuilder.Configurations.Add(new GigConfiguration());
             modelBuilder.Entity<ApplicationUser>().HasMany(a => a.Followers).WithRequired(f => f.Followee).WillCascadeOnDelete(false);
             modelBuilder.Entity<ApplicationUser>().HasMany(a => a.Followees).WithRequired(f => f.Follower).WillCascadeOnDelete(false);
             modelBuilder.Entity<UserNotification>().HasRequired(a => a.User).WithMany(u => u.UserNotifications).WillCascadeOnDelete(false);

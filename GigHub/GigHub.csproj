@@ -222,6 +222,7 @@
     <Compile Include="Controllers\API\FollowingsController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Persistence\EntityConfigurations\GigConfiguration.cs" />
     <Compile Include="Persistence\Migrations\201901160510196_addIsCanceledToGig.cs" />
     <Compile Include="Persistence\Migrations\201901160510196_addIsCanceledToGig.Designer.cs">
       <DependentUpon>201901160510196_addIsCanceledToGig.cs</DependentUpon>
