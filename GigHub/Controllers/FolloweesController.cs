@@ -13,6 +13,7 @@ namespace GigHub.Controllers
     public class FolloweesController : Controller
     {
         private readonly ApplicationDbContext _context;
+
         public FolloweesController()
         {
             _context = new ApplicationDbContext();
@@ -21,7 +22,10 @@ namespace GigHub.Controllers
         public ActionResult Following()
         {
             var userId = User.Identity.GetUserId();
-            var follow = _context.Followings.Where(a => a.FollowerId == userId).Include(a=>a.Followee).ToList();
+            var follow = _context.Followings
+                .Where(a => a.FollowerId == userId)
+                .Include(a => a.Followee)
+                .ToList();
             return View(follow);
         }
     }
